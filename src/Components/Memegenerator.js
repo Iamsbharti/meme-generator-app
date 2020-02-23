@@ -44,8 +44,8 @@ function Memegenerator() {
       </form>
       <div className="meme">
         <img src={randomImg} alt="?" />
-        <h2 className="top-text">{topText}</h2>
-        <h2 className="bottom-text">{bottomTxt}</h2>
+        <h2 className="top">{topText}</h2>
+        <h2 className="bottom">{bottomTxt}</h2>
       </div>
     </div>
   );
