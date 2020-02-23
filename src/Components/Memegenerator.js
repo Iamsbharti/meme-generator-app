@@ -3,20 +3,25 @@ import React, { useState, useEffect } from "react";
 function Memegenerator() {
   const [topText, setTopTxt] = useState("");
   const [bottomTxt, setBottomTxt] = useState("");
+  const [randomImg, setRandomImg] = useState("http://i.imgflip.com/1bij.jpg");
   const [allMemeArry, setAllMemeArray] = useState([]);
 
-  useEffect({
-     fetch("")
-    .then(response=>response.json())
-    .then(response=>{
-      const {meme}=response.data;
-      console.log(meme[0]);
-      setAllMemeArray(meme);
-    })
-  });
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then(response => response.json())
+      .then(response => {
+        const { memes } = response.data;
+        //console.log(memes[0]);
+        setAllMemeArray(memes);
+      });
+  }, []);
   const handleSubmit = event => {
     console.log("submit");
     event.preventDefault();
+    let randomIndex = Math.floor(Math.random() * allMemeArry.length);
+    //console.log(randomIndex);
+    //console.log("MemeImageURL:"+allMemeArry[randomIndex].url);
+    setRandomImg(allMemeArry[randomIndex].url);
   };
   return (
     <div>
@@ -38,7 +43,7 @@ function Memegenerator() {
         <button>Generate</button>
       </form>
       <div className="meme">
-        <img src="http://i.imgflip.com/1bij.jpg" alt="?" />
+        <img src={randomImg} alt="?" />
         <h2 className="top-text">{topText}</h2>
         <h2 className="bottom-text">{bottomTxt}</h2>
       </div>
